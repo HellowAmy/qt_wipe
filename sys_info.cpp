@@ -150,12 +150,6 @@ QString sys_info_klin::get_host()
     return str;
 }
 
-
-#include <QDebug>
-#ifndef out
-#define out qDebug()
-#endif
-
 QString sys_info_klin::get_ip_net()
 {
     QString str;
@@ -166,7 +160,6 @@ QString sys_info_klin::get_ip_net()
     {
         QNetworkInterface interf = *it;
         QString inter = interf.humanReadableName(); //接口名称（网卡）
-        out<<inter;
 
         //获取网卡内数据列表--读取一个IP地址列表
         QList<QNetworkAddressEntry> list_entry = interf.addressEntries();
@@ -176,33 +169,22 @@ QString sys_info_klin::get_ip_net()
             QString mask;
             QHostAddress addr = it->ip();
 
-            out<<"===rrr="<<addr;
+            //排除多余网络地址
             if(addr.protocol() == QAbstractSocket::IPv4Protocol
-                    && addr != QHostAddress::LocalHost)//
+                    && addr != QHostAddress::LocalHost)
             {
                 ip = addr.toString();//地址转文本
                 mask = it->netmask().toString();//子网掩码
                 QString temp = ip +flg()+ mask;
-                out<<"========"<<temp;
                 map.insert(inter,temp);
             }
-
-
         }
     }
 
-
-    for(auto a:map)
-    {
-        out<<"asdsdasdasd="<<a;
-    }
-
+    //获取指定的网卡，失败则随机获取
     auto it = map.find("ens33");
     if(it != map.end()) str = it.value();
-//    else
-
-//    if()
-
+    else if(map.size() > 0) str = *map.begin();
 
     return str;
 }
