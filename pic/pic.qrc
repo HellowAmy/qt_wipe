@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>butt_choose_old.png</file>
+        <file>pic_info.png</file>
+        <file>pic_title.png</file>
+    </qresource>
+</RCC>
