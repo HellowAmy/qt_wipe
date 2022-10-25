@@ -9,6 +9,8 @@
 
 #include "qt_frameless.h"
 #include "wid_tab_list.h"
+#include "files_info.h"
+#include "qt_wipe.h"
 
 //! 说明:
 //! 该类用于承载粉碎文件的界面
@@ -30,10 +32,14 @@ protected:
     QPushButton *butt_wipe;//粉碎文件
     QPushButton *butt_recover;//清空回收站
 
-    QString str_edit_info;
+    QStringList list_wipe;//粉碎文件路径
+    QString str_edit_info;//拖动提示
 
     void init();//控件初始化
     void signal();//启动信号槽
+
+    void get_path_edit(QString path);
+    void wipe_list_file();
 
 };
 

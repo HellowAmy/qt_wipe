@@ -15,12 +15,7 @@ void qt_frameless::set_frameless(bool is_lucent)
 {
     is_lessframe = true;
     this->setWindowFlag(Qt::FramelessWindowHint);//无边框
-
-    if(is_lucent)
-    {
-        this->setAttribute
-                (Qt::WA_TranslucentBackground);//背景透明
-    }
+    if(is_lucent) this->setAttribute(Qt::WA_TranslucentBackground);//背景透明
 }
 
 void qt_frameless::paintEvent(QPaintEvent *e)

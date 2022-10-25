@@ -33,16 +33,18 @@ public:
                    QColor col = QColor(50,50,50,127));
 
     //添加内容
-    void add_content(QStringList list,
+    void set_content(QStringList list,
                      QColor col = QColor(127,127,127,127));
 
     //打开全选按钮
     void open_choose(bool is_open = true,
                      QColor col = QColor(50,50,50,127));
 
-    void set_size(int wide,int high,int space = 5);//设置大小窗口必须通过此函数
-    QVector<int> get_check_status();//返回勾选状态
-    void set_wide(int wide);
+    //设置大小窗口必须通过此函数
+    void set_size(int wide,int high,int space = 5);
+
+    QVector<Qt::CheckState> get_status_vec();//返回勾选状态
+    void clear_list();//清空列表
     void open();//启动列表
 
 signals:
@@ -56,10 +58,9 @@ protected:
     QPushButton *butt_clear;//清空按钮
 
     QColor col_content;
-    QSize size_wid;
 
     QStringList list_status;
-    QVector<int> vec_status;
+
 
     int size_wide = 30;
     int v_space = 5;

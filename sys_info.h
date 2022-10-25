@@ -8,11 +8,11 @@
 #include <QNetworkInterface>
 #include <QMap>
 
-#include "files_info.h"
-
 #include <iostream>
 #include <fstream>
 #include <string>
+
+#include "files_info.h"
 
 using std::fstream;
 using std::string;

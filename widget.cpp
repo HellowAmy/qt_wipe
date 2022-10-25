@@ -9,6 +9,11 @@
 #include "wid_sys_wipe.h"
 #include "qt_manage.h"
 #include "sys_info.h"
+#include "qt_wipe.h"
+
+#include "files_info.h"
+
+#include "qt_dialog.h"
 
 #include <QDebug>
 #ifndef out
@@ -28,12 +33,44 @@ Widget::Widget(QWidget *parent)
 //    bu->show();
 
 
-    sys_info *hu = new sys_info_klin(this);
-    out<<"get_sys_version="<<hu->get_sys_version();
-    out<<"get_sys_cpu="<<hu->get_sys_cpu();
-    out<<"get_sys_mem="<<hu->get_sys_mem();
-    out<<"get_host="<<hu->get_host();
-    out<<"get_ip_net="<<hu->get_ip_net();
+    qt_dialog *hu = new qt_dialog(this);
+    hu->show();
+
+
+//    QFileInfoList list_info = files_info::get_files_info("/home/red/open/qt_hur");
+
+//    QStringList list_name = files_info::get_files_name("/home/red/open/qt_hur");
+
+//    for(int i=0;i<list_info.size();i++)
+//    {
+//        out<<list_info[i];
+//    }
+
+//    for(int i=0;i<list_name.size();i++)
+//    {
+//        out<<list_name[i];
+//    }
+
+//    for(auto a:list_info)
+//    {
+
+//    }
+
+
+
+//    out<<qt_wipe::wipe_path("/home/red/1");
+//    out<<qt_wipe::wipe_path("/home/red/01");
+//    out<<qt_wipe::wipe_path("/home/red/01.txt");
+//    out<<qt_wipe::wipe_path("/home/red/02.txt");
+//    out<<qt_wipe::wipe_path("/home/red/11");
+
+
+//    sys_info *hu = new sys_info_klin(this);
+//    out<<"get_sys_version="<<hu->get_sys_version();
+//    out<<"get_sys_cpu="<<hu->get_sys_cpu();
+//    out<<"get_sys_mem="<<hu->get_sys_mem();
+//    out<<"get_host="<<hu->get_host();
+//    out<<"get_ip_net="<<hu->get_ip_net();
 
 
 //    hu->

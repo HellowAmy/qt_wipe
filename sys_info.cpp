@@ -76,6 +76,8 @@ QString sys_info_klin::get_sys_cpu()
         str_type = str_type.section(" ",2,-1);
         str_type = str_type.section(" ",0,3)
                     + " " + str_type.section(" ",6,6);
+        str_type = str_type.section(" ",0,1)
+                    + " " + str_type.section(" ",3,3);
 
         str = str_type + this->flg() + str_size;
     }
@@ -119,7 +121,7 @@ QString sys_info_klin::get_sys_mem()
         str_all = QString::number(str_all.section(" ",-2,-2).toInt() / 1024);
         str_free = QString::number(str_free.section(" ",-2,-2).toInt() / 1024);
 
-        str = str_all + flg() + str_free;
+        str = str_free + flg() + str_all;
     }
 
     return str;
@@ -144,7 +146,7 @@ QString sys_info_klin::get_host()
         str_user = files_info::get_host_path();
         str_user = str_user.section("/",-2,-2);
 
-        str =  str_host + flg() + str_user;
+        str = str_user + flg() + str_host;
     }
 
     return str;

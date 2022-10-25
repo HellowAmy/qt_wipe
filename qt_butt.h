@@ -34,16 +34,17 @@ public:
 signals:
 
 protected:
+    bool is_open = false;
+
     QString pic_normal;
     QString pic_enter;
     QString pic_press;
     QString pic_change;
 
-    bool is_open = false;
     QPixmap pix;
 
-    void change_pic(QString pic);
-    void smooth_pic(QString pic);
+    void change_pic(QString pic);//切换图片
+    void smooth_pic(QString pic);//图片平滑
 
     void paintEvent(QPaintEvent *e) override;
     void enterEvent(QEvent *) override;

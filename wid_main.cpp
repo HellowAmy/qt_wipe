@@ -27,7 +27,6 @@ wid_main::wid_main(QWidget *parent) : qt_frameless(parent)
     sys_wipe->move(150,300);
     sys_wipe->show();
 
-
     //浏览器清除
     sys_browser = new wid_sys_browser(this);
     sys_browser->set_back(":/pic_info.png");
@@ -44,15 +43,13 @@ wid_main::wid_main(QWidget *parent) : qt_frameless(parent)
     list_butt->start();
     list_butt->show();
 
-
-
+    //插入到动画管理
     manage_move = new qt_manage(this);
     manage_move->set_wid_main(this);
     manage_move->set_pos_show(sys_info->pos());
     manage_move->set_pos_hide(QPoint(0,this->height()));
     manage_move->add_wid_vec(to_vec<QWidget*>
                              (sys_info,sys_wipe,sys_browser));
-
     manage_move->open(1);
 
 //    manage_move->start_move(2);

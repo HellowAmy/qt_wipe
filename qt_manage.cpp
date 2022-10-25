@@ -79,7 +79,7 @@ bool qt_manage::start_move(int index,int mode)
             index_new = index;//最新移动界面
             mode_show = mode;//启动动画模式类型
 //            vec_wid[index]->move(pos_show);//初始化按钮位置
-            timer->start(1);
+            timer->start(v_speed);
         }
     }
 
@@ -107,7 +107,6 @@ void qt_manage::mode_show_1()
     static int speed = 0;//移动速度
     static bool is_first = true;//首次进入
     static bool is_end = false;//结束标记
-//    int index = index_old;
 
     if(is_first)
     {
@@ -136,23 +135,20 @@ void qt_manage::mode_show_1()
                 (vec_wid[index_old]->pos() + QPoint(speed,0));
 
         //停止条件
-        if(vec_wid[index_old]->pos().x() > wid_main->width())
+        if(vec_wid[index_old]->pos().x() > wid_main->width() * 2)
         {
             part = 2;//进入第二阶段
 
             //静态恢复初值
             count = 0;
             speed = 0;
-//            is_first = true;
-//            index_old = index_new;
-
         }
     }
     else if(part == 2)//第二阶段
     {
         //移动界面--新窗口
         vec_wid[index_new]->move
-                (vec_wid[index_new]->pos() + QPoint(0,1));
+                (vec_wid[index_new]->pos() + QPoint(0,8));
 
         //停止条件
         if(vec_wid[index_new]->pos().y() > pos_show.y())
@@ -184,38 +180,6 @@ void qt_manage::mode_show_1()
         emit fa_finish_mode(mode_show);
 
     }
-
-
-
-//    //移动界面--新窗口
-//    vec_wid[index_new]->move
-//            (vec_wid[index_new]->pos() + QPoint(0,1));
-
-    //停止条件
-//    if(vec_wid[index_old]->pos().x() > wid_main->width())
-//    {
-//        part = 2;//进入第二阶段
-
-
-//        //静态恢复初值
-//        count = 0;
-//        speed = 0;
-//        is_first = true;
-//        index_old = index_new;
-
-//        //迁移旧窗口
-//        vec_wid[index_old]->hide();
-//        vec_wid[index_old]->move(pos_hide);
-
-//        for(auto a:vec_wid)
-//        {
-//            out<<"="<<a->pos();
-//        }
-
-////        必须发送结束信号，否则无法开启下一轮
-//        timer->stop();
-//        emit fa_finish_mode(mode_show);
-//    }
 }
 
 void qt_manage::mode_show_2()

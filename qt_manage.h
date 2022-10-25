@@ -54,9 +54,9 @@ signals:
     emit void fa_finish_mode(int mode);
 
 protected:
-//    bool is_open = false;
     bool is_runing = false;
 
+    int v_speed = 5;
     int index_old = 0;
     int index_new = 0;//操作最新窗口的索引
     int mode_show = 0;//设置动画模式

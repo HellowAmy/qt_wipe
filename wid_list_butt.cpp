@@ -2,9 +2,6 @@
 
 wid_list_butt::wid_list_butt(QWidget *parent) : QWidget(parent)
 {
-    pic_butt = ":/butt_choose_old.png";
-    size_butt = 3;
-
     list_butt = new qt_list_butt(this);
 
     signal();

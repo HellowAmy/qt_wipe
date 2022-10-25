@@ -90,51 +90,44 @@ void wid_tab_list::set_title(QString title, QColor col)
     tab_title->setPalette(palette);//设置画板
 }
 
-void wid_tab_list::add_content(QStringList list, QColor col)
+void wid_tab_list::set_content(QStringList list, QColor col)
 {
-    if(list.size() != 0)
+    tab_list->setColumnCount(1);
+    tab_list->setRowCount(list.size());
+
+    //加内容,目前不支持其他列
+    for(int i=0;i<list.size();i++)
     {
-        tab_list->setColumnCount(1);
-        tab_list->setRowCount(list.size());
-
-        //加内容,目前不支持其他列
-        for(int i=0;i<list.size();i++)
-        {
-            QTableWidgetItem *temp = new QTableWidgetItem;
-            temp->setText(list[i]);
-            temp->setCheckState(Qt::Checked);
-            temp->setFlags(temp->flags()&~Qt::ItemIsSelectable);//去除选中状态
-            tab_list->setItem(i,0,temp);
-        }
+        QTableWidgetItem *temp = new QTableWidgetItem;
+        temp->setText(list[i]);
+        temp->setCheckState(Qt::Checked);
+        temp->setFlags(temp->flags()&~Qt::ItemIsSelectable);//去除选中状态
+        tab_list->setItem(i,0,temp);
     }
-
     col_content = col;
 }
 
 void wid_tab_list::set_size(int wide, int high,int space)
 {
-    size_wid = QSize(wide,high);
     v_space = space;
 
     this->resize(wide,high);
     this->show();
 }
 
-QVector<int> wid_tab_list::get_check_status()
+QVector<Qt::CheckState> wid_tab_list::get_status_vec()
 {
+    QVector<Qt::CheckState> vec_status;
+
     //查看打勾状态
     for(int i=0;i<tab_list->rowCount();i++)
     {
         if(tab_list->item(i,0)->checkState() == Qt::Checked)
-            vec_status.push_back(i);
+            vec_status.push_back(Qt::Checked);
+        else vec_status.push_back(Qt::Unchecked);
     }
 
     return vec_status;
-}
-
-void wid_tab_list::set_wide(int wide)
-{
-    size_wide = wide;
 }
 
 void wid_tab_list::open()
@@ -159,6 +152,11 @@ void wid_tab_list::open()
     butt_clear->move(this->width()/2,this->height() - size_wide);
     butt_clear->resize(this->width()/2,size_wide);
     butt_clear->show();
+}
+
+void wid_tab_list::clear_list()
+{
+    emit this->fa_press_clear();
 }
 
 void wid_tab_list::open_choose(bool is_open,QColor col)

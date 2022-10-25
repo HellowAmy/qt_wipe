@@ -24,7 +24,7 @@ wid_sys_browser::wid_sys_browser(QWidget *parent) : qt_frameless(parent)
     tab_list->move(butt_clear->pos() +
                    QPoint(0,butt_clear->height() + space));
     tab_list->open_choose();
-    tab_list->set_title("文件名");
+    tab_list->set_title("文件名列表");
 //    tab_list->add_content(ve);
     tab_list->set_size(250,200);
     tab_list->open();
