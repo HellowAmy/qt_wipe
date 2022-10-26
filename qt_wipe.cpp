@@ -20,6 +20,7 @@ bool qt_wipe::wipe_path(QString path)
             if(info.isDir()) flg = 'r';
             if(destroy_interface(temp.c_str(),flg) == 0) is_ok = true;
         }
+        else is_ok = true;
     }
 
     return is_ok;

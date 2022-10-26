@@ -9,8 +9,6 @@
 #include <QLabel>
 #include <QPushButton>
 
-#include "qt_show.h"
-
 class qt_dialog : public QDialog
 {
     Q_OBJECT
@@ -20,6 +18,8 @@ public:
     void set_text(QString txt);
 
 signals:
+    emit void fa_press_ok();
+    emit void fa_press_no();
 
 protected:
     int v_high = 100;

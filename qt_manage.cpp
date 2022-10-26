@@ -1,12 +1,11 @@
 #include "qt_manage.h"
 
-#include <QDebug>
-#ifndef out
-#define out qDebug()
-#endif
+#include "qt_show.h"
 
 qt_manage::qt_manage(QObject *parent) : QObject(parent)
 {
+    vlog("init");
+
     timer = new QTimer(this);
 
     wid_main = nullptr;
@@ -45,23 +44,16 @@ bool qt_manage::open(int index)
     if(wid_main != nullptr && vec_wid.size() > 0
             && index < vec_wid.size())
     {
-
-//        pos_hide = QPoint(0,wid_main->height());
         move_pos_hide_all(pos_hide);//位置隐藏初始位置
 
         //显示默认窗口
         vec_wid[index]->move(pos_show);
         vec_wid[index]->show();
         index_old = index;
-
-        for(auto a:vec_wid)
-
-        {
-            out<<a->pos();
-        }
-
         is_ok = true;
     }
+
+    vlog("开启动画，预设界面索引:%d,是否开启成功:%d",index,is_ok);
 
     return is_ok;
 }
@@ -74,12 +66,13 @@ bool qt_manage::start_move(int index,int mode)
                 && mode_show < vec_mode_show.size()
                 && index >= 0 && mode >= 0)
         {
-            out<<"==="<<index;
+            vlog("列表移动,移动索引:%d",index);
+
             is_runing = true;
             index_new = index;//最新移动界面
             mode_show = mode;//启动动画模式类型
 //            vec_wid[index]->move(pos_show);//初始化按钮位置
-            timer->start(v_speed);
+            timer->start(v_speed); 
         }
     }
 
@@ -113,7 +106,6 @@ void qt_manage::mode_show_1()
         //新窗口位置
         vec_wid[index_new]->move(pos_show +
                  QPoint(0,-(pos_show.y() + vec_wid[index_new]->height())));
-        out<<"123=="<<vec_wid[index_new]->pos();
 
         vec_wid[index_new]->show();
         is_first = false;
@@ -179,6 +171,8 @@ void qt_manage::mode_show_1()
         //必须发送结束信号，否则无法开启下一轮
         emit fa_finish_mode(mode_show);
 
+        vlog("动画播放结束,现在的界面标记:%d",index_old);
+
     }
 }
 
@@ -189,6 +183,7 @@ void qt_manage::mode_show_2()
 
 void qt_manage::move_pos_hide_all(QPoint pos)
 {
+    vlog("初始化界面隐藏位置");
     for(int i=0;i<vec_wid.size();i++)
     {
         vec_wid[i]->move(pos);

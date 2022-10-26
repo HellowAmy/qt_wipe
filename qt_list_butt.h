@@ -30,6 +30,7 @@ public:
     ~qt_list_butt();
 
     QSize get_size();//添加按钮后生成的界面大小
+    int get_count_butt();//添加按钮后生成的界面大小
 
     void add_butt(int size);//添加默认按钮
     void add_butt_vec(QVector<QPushButton*> vec_butt);

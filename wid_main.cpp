@@ -1,10 +1,6 @@
 #include "wid_main.h"
 
-#include <QDebug>
-#ifndef out
-#define out qDebug()
-#endif
-
+#include "qt_show.h"
 
 wid_main::wid_main(QWidget *parent) : qt_frameless(parent)
 {
@@ -52,26 +48,17 @@ wid_main::wid_main(QWidget *parent) : qt_frameless(parent)
                              (sys_info,sys_wipe,sys_browser));
     manage_move->open(1);
 
-//    manage_move->start_move(2);
-//    out<<"|"<<manage_move->move_pos_wid(sys_info->pos(),1);
-//    manage_move->start_move(2);
-
-
-
-
-
-
-
+    vlog("init finish");
 
     connect(list_butt,&wid_list_butt::fa_butt_index,this,[=](int index){
         manage_move->start_move(index);
-        out<<index;
+//        out<<index;
     });
 
     connect(list_butt,&wid_list_butt::fa_finish,this,[=](direct dire,bool is_start){
 
-        out<<dire;
-        out<<is_start;
+//        out<<dire;
+//        out<<is_start;
 //        if(is_start) list_butt->close();
 //        else list_butt->start();
 

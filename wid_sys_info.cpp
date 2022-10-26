@@ -1,16 +1,21 @@
 #include "wid_sys_info.h"
 
+#include "qt_show.h"
+
 wid_sys_info::wid_sys_info(QWidget *parent) : qt_frameless(parent)
 {
+    vlog("init");
+
     sys_info *info = new sys_info_klin(this);//虚函数
     set_info(info);
-
 }
 
 void wid_sys_info::set_info(sys_info *info)
 {
     if(info != nullptr)
     {
+        vlog("show_info");
+
         QLabel *lab_version = new QLabel(this);
         QLabel *lab_cpu = new QLabel(this);
         QLabel *lab_men = new QLabel(this);

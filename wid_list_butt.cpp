@@ -1,10 +1,13 @@
 #include "wid_list_butt.h"
 
+#include "qt_show.h"
+
 wid_list_butt::wid_list_butt(QWidget *parent) : QWidget(parent)
 {
     list_butt = new qt_list_butt(this);
 
     signal();
+    vlog("init finish");
 }
 
 void wid_list_butt::set_pic(QString pic)
@@ -55,6 +58,7 @@ void wid_list_butt::add_butt_list()
 
     list_butt->add_butt_vec(vec_butt_push);//添加按钮列表
     list_butt->open();//启动列表定时器
+    vlog("类型转换完成,按钮数量:%d",list_butt->get_count_butt());
 
     this->resize(list_butt->get_size());
 }

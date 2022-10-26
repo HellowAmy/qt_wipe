@@ -1,17 +1,14 @@
 #include "qt_list_butt.h"
 
-#include <QDebug>
-#ifndef out
-#define out qDebug()
-#endif
+#include "qt_show.h"
 
 qt_list_butt::qt_list_butt(QWidget *parent) : QWidget(parent)
 {
     timer_move = new QTimer(this);
 
     size_butt = QSize(100,30);
-
     signal();
+    vlog("init finish");
 }
 
 qt_list_butt::~qt_list_butt()
@@ -39,6 +36,8 @@ void qt_list_butt::add_butt_vec(QVector<QPushButton *> vec)
 
     if(vec_butt.size() > 0) size_butt = vec_butt[0]->size();
     is_add_out = true;
+
+    vlog("类型转换完成,按钮数量:%d",vec_butt.size());
 }
 
 void qt_list_butt::set_butt_size(int wide, int high)
@@ -56,8 +55,15 @@ QSize qt_list_butt::get_size()
     return size_wid;
 }
 
+int qt_list_butt::get_count_butt()
+{
+    return vec_butt.size();
+}
+
 void qt_list_butt::open(direct direct)
 {
+    vlog("开启按钮列表,展开方向:%d",direct);
+
     //默认添加的按钮
     if(is_add_out == false)
     {
@@ -164,9 +170,9 @@ void qt_list_butt::signal()
             count_move = 0;
             count_in = 0;
             emit fa_finish(flg,is_start);
+
+            vlog("列表展开结束");
         }
     });
-
-
 
 }

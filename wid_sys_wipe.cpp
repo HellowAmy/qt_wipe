@@ -1,9 +1,6 @@
 #include "wid_sys_wipe.h"
 
-#include <QDebug>
-#ifndef out
-#define out qDebug()
-#endif
+#include "qt_show.h"
 
 wid_sys_wipe::wid_sys_wipe(QWidget *parent) : qt_frameless(parent)
 {
@@ -11,8 +8,40 @@ wid_sys_wipe::wid_sys_wipe(QWidget *parent) : qt_frameless(parent)
     signal();
 }
 
+void wid_sys_wipe::clear_recover()
+{
+    QString path_files =
+            files_info::get_host_path() + ".local/share/Trash/files";
+    QString path_info =
+            files_info::get_host_path() + ".local/share/Trash/info";
+
+    vlog("回收站清空路径1：%s",path_files.toStdString().c_str());
+    vlog("回收站清空路径2：%s",path_info.toStdString().c_str());
+
+    int count_ok = 0;
+    QDir dir;
+
+    dir.setPath(path_files);
+    if(dir.exists())
+    {
+        if(dir.removeRecursively()) count_ok++;
+    }
+    else count_ok++;
+
+    dir.setPath(path_info);
+    if(dir.exists())
+    {
+        if(dir.removeRecursively()) count_ok++;
+    }
+    else count_ok++;
+
+    if(count_ok != 2) emit fa_failed_recover();
+}
+
 void wid_sys_wipe::init()
 {
+    vlog("init wipe");
+
     //全部布局以输入框为基准点
     str_edit_info = "<<将粉碎文件拖入此处>>";
     int space = 5;//控件的间隔
@@ -69,6 +98,17 @@ void wid_sys_wipe::init()
     tab_list->set_title("文件名列表");
     tab_list->set_size(340,200);
     tab_list->open();
+
+    dialog_wipe = new qt_dialog(this);
+    dialog_wipe->set_text("<<粉碎文件将永远无法恢复>>");
+    dialog_wipe->close();
+
+    dialog_recover = new qt_dialog(this);
+    dialog_recover->set_text("<<即将清空回收站>>");
+    dialog_recover->close();
+
+    dialog_failed = new qt_dialog(this);
+    dialog_failed->close();
 }
 
 void wid_sys_wipe::signal()
@@ -76,29 +116,79 @@ void wid_sys_wipe::signal()
     //列表清空按钮
     connect(tab_list,&wid_tab_list::fa_press_clear,this,[=](){
         list_wipe.clear();
+        vlog("粉碎文件列表清空");
     });
-
-
-
-    //粉碎按钮
-    connect(butt_wipe,&QPushButton::clicked,this,[=](){
-        wipe_list_file();
-    });
-
-
 
     //获取粉碎文件路径
     connect(edit_path,&QLineEdit::textEdited,this,[=](QString path){
         get_path_edit(path);
     });
+
+    //==========
+    //清空失败--唤起弹窗
+    connect(this,&wid_sys_wipe::fa_failed_recover,this,[=](){
+        dialog_failed->set_text("清空回收站遇到阻止");
+        dialog_failed->show();
+        vlog("清空回收站遇到阻止");
+    });
+
+    //失败--ok
+    connect(dialog_failed,&qt_dialog::fa_press_ok,this,[=](){
+        dialog_failed->close();
+    });
+
+    //失败--ok
+    connect(dialog_failed,&qt_dialog::fa_press_no,this,[=](){
+        dialog_failed->close();
+    });
+    //==========
+
+
+    //==========
+    //粉碎按钮--唤起弹窗
+    connect(butt_wipe,&QPushButton::clicked,this,[=](){
+        if(list_wipe.isEmpty() == false)
+        {
+            dialog_wipe->show();
+            vlog("粉碎按钮--唤起弹窗");
+        }
+    });
+
+    //粉碎--ok
+    connect(dialog_wipe,&qt_dialog::fa_press_ok,this,[=](){
+        wipe_list_file();
+        dialog_wipe->close();
+    });
+
+    //粉碎--no
+    connect(dialog_wipe,&qt_dialog::fa_press_no,this,[=](){
+        dialog_wipe->close();
+    });
+    //==========
+
+
+    //==========
+    //回收按钮--唤起弹窗
+    connect(butt_recover,&QPushButton::clicked,this,[=](){
+        dialog_recover->show();
+        vlog("回收按钮--唤起弹窗");
+    });
+
+    //回收--ok
+    connect(dialog_recover,&qt_dialog::fa_press_ok,this,[=](){
+        clear_recover();
+        dialog_recover->close();
+    });
+
+    //回收--no
+    connect(dialog_recover,&qt_dialog::fa_press_no,this,[=](){
+        dialog_recover->close();
+    });
+    //==========
 }
-#include "qt_show.h"
 
 void wid_sys_wipe::get_path_edit(QString path)
 {
-
-//    list_wipe<<path;
-
     //重置显示
     edit_path->clear();
     edit_path->setText(str_edit_info);
@@ -110,42 +200,19 @@ void wid_sys_wipe::get_path_edit(QString path)
     if(path.contains("\r\n")) path = path.section("\r\n",0,0);
     else path = path.section("\n",0,0);
 
-//    tab_list->clear_list();//清空列表
-//    list_wipe = files_info::get_files_name(path);//添加到列表
-
-//    //去除路径
-//    QStringList list_less_dir;
-//    for(int i=0;i<list_wipe.size();i++)
-//    {
-//        list_less_dir<<list_wipe[i].section("/",-1,-1);
-//    }
-
-
-
-
-//    out<<path;
-//    tab_list->add_content(QStringList(path));
-    list_wipe<<path;
-
-    show_arr<QStringList>(list_wipe,"123");
-//    for(int i=0;i<list_wipe.size();i++)
-//    {
-//        out<<list_wipe;
-//    }
+    vlog("加到粉碎列表的路径:%s",path.toStdString().c_str());
+    list_wipe<<path;//追加到现存列表
     tab_list->set_content(list_wipe);//放入列表
 }
 
 void wid_sys_wipe::wipe_list_file()
 {
     if(list_wipe.isEmpty()) return;
+    auto vec_status = tab_list->get_status_vec();//获取状态
 
-    //获取状态
-    QVector<Qt::CheckState> vec_status = tab_list->get_status_vec();
-
-
-
-    QStringList list_leave;//排除粉碎文件
-    QStringList list_will_wipe;//即将粉碎的文件
+    //分离打勾项
+    QStringList list_leave;//排除粉碎文件--未打勾
+    QStringList list_will_wipe;//即将粉碎的文件--打勾
     for(int i=0;i<list_wipe.size();i++)
     {
         if(i<vec_status.size()
@@ -156,6 +223,7 @@ void wid_sys_wipe::wipe_list_file()
         else list_leave<<list_wipe[i];
     }
 
+    //粉碎打勾
     for(int i=0;i<list_will_wipe.size();i++)
     {
         //粉碎文件，粉碎失败加入列表
@@ -163,20 +231,7 @@ void wid_sys_wipe::wipe_list_file()
         if(is_ok == false) list_leave<<list_will_wipe[i];
     }
 
-
-    out<<"11asd=========";
-    show_arr<QStringList>(list_leave);
-    out<<"asd=========";
-    show_arr<QStringList>(list_will_wipe);
-
-    //==
-    show_arr<QStringList>(list_wipe,"==");
-
-
     //将保留项加入列表
     list_wipe = list_leave;
     tab_list->set_content(list_wipe);
-    tab_list->update();
-
-
 }

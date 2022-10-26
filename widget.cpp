@@ -14,12 +14,12 @@
 #include "files_info.h"
 
 #include "qt_dialog.h"
+#include "qt_show.h"
 
-#include <QDebug>
-#ifndef out
-#define out qDebug()
-#endif
-
+//#include <QDebug>
+//#ifndef out
+//#define out qDebug()
+//#endif
 
 
 
@@ -29,12 +29,29 @@ Widget::Widget(QWidget *parent)
 {
     ui->setupUi(this);
 
+
+
+
+
+
+//    LOG("info","asd %d ",10);
+//    show_2(22);
 //    wid_sys_wipe *bu = new wid_sys_wipe(this);
 //    bu->show();
 
 
-    qt_dialog *hu = new qt_dialog(this);
-    hu->show();
+//    qt_dialog *hu = new qt_dialog(this);
+//    hu->show();
+
+//    connect(hu,&qt_dialog::fa_press_ok,this,[=](){
+//        out<<"ok";
+//        hu->set_text("点击了ok");
+//    });
+
+//    connect(hu,&qt_dialog::fa_press_no,this,[=](){
+//        out<<"no";
+//        hu->set_text("点击了no");
+//    });
 
 
 //    QFileInfoList list_info = files_info::get_files_info("/home/red/open/qt_hur");
@@ -55,6 +72,7 @@ Widget::Widget(QWidget *parent)
 //    {
 
 //    }
+//    show_2("11asd");
 
 
 
