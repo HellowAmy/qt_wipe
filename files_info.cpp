@@ -5,7 +5,7 @@ files_info::files_info(QObject *parent) : QObject(parent)
 
 }
 
-QStringList files_info::get_files_name(QString path)
+QStringList files_info::get_files_path(QString path)
 {
     QStringList list;
 

@@ -4,6 +4,7 @@ qt_dialog::qt_dialog(QWidget *parent) : QDialog(parent)
 {
     this->setWindowFlag(Qt::FramelessWindowHint);//无边框
     this->setWindowModality(Qt::WindowModal);//模态
+    this->hide();
 
     size_screen = QSize(0,0);
 
@@ -37,6 +38,7 @@ qt_dialog::qt_dialog(QWidget *parent) : QDialog(parent)
 
     //按钮--ok
     butt_ok = new QPushButton(this);
+    butt_ok->show();
     butt_ok->resize(100,30);
     butt_ok->setText("ok");
     butt_ok->move(v_center_w - (butt_ok->width()
@@ -45,6 +47,7 @@ qt_dialog::qt_dialog(QWidget *parent) : QDialog(parent)
 
     //按钮--no
     butt_no = new QPushButton(this);
+    butt_no->show();
     butt_no->resize(100,30);
     butt_no->setText("no");
     butt_no->move(v_center_w + (butt_ok->width() / 5 + v_space),
@@ -53,6 +56,15 @@ qt_dialog::qt_dialog(QWidget *parent) : QDialog(parent)
     //信号转发
     connect(butt_ok,&QPushButton::clicked,this,&qt_dialog::fa_press_ok);
     connect(butt_no,&QPushButton::clicked,this,&qt_dialog::fa_press_no);
+    connect(butt_ok,&QPushButton::clicked,this,&qt_dialog::hide);
+    connect(butt_no,&QPushButton::clicked,this,&qt_dialog::hide);
+
+//    connect(this,&qt_dialog::fa_press_ok,this,[=](){
+//        this->hide();
+//    });
+//    connect(this,&qt_dialog::fa_press_no,this,[=](){
+//        this->hide();
+//    });
 }
 
 void qt_dialog::set_text(QString txt)

@@ -101,14 +101,11 @@ void wid_sys_wipe::init()
 
     dialog_wipe = new qt_dialog(this);
     dialog_wipe->set_text("<<粉碎文件将永远无法恢复>>");
-    dialog_wipe->close();
 
     dialog_recover = new qt_dialog(this);
     dialog_recover->set_text("<<即将清空回收站>>");
-    dialog_recover->close();
 
     dialog_failed = new qt_dialog(this);
-    dialog_failed->close();
 }
 
 void wid_sys_wipe::signal()
@@ -124,7 +121,6 @@ void wid_sys_wipe::signal()
         get_path_edit(path);
     });
 
-    //==========
     //清空失败--唤起弹窗
     connect(this,&wid_sys_wipe::fa_failed_recover,this,[=](){
         dialog_failed->set_text("清空回收站遇到阻止");
@@ -132,19 +128,6 @@ void wid_sys_wipe::signal()
         vlog("清空回收站遇到阻止");
     });
 
-    //失败--ok
-    connect(dialog_failed,&qt_dialog::fa_press_ok,this,[=](){
-        dialog_failed->close();
-    });
-
-    //失败--ok
-    connect(dialog_failed,&qt_dialog::fa_press_no,this,[=](){
-        dialog_failed->close();
-    });
-    //==========
-
-
-    //==========
     //粉碎按钮--唤起弹窗
     connect(butt_wipe,&QPushButton::clicked,this,[=](){
         if(list_wipe.isEmpty() == false)
@@ -157,17 +140,8 @@ void wid_sys_wipe::signal()
     //粉碎--ok
     connect(dialog_wipe,&qt_dialog::fa_press_ok,this,[=](){
         wipe_list_file();
-        dialog_wipe->close();
     });
 
-    //粉碎--no
-    connect(dialog_wipe,&qt_dialog::fa_press_no,this,[=](){
-        dialog_wipe->close();
-    });
-    //==========
-
-
-    //==========
     //回收按钮--唤起弹窗
     connect(butt_recover,&QPushButton::clicked,this,[=](){
         dialog_recover->show();
@@ -177,14 +151,8 @@ void wid_sys_wipe::signal()
     //回收--ok
     connect(dialog_recover,&qt_dialog::fa_press_ok,this,[=](){
         clear_recover();
-        dialog_recover->close();
     });
 
-    //回收--no
-    connect(dialog_recover,&qt_dialog::fa_press_no,this,[=](){
-        dialog_recover->close();
-    });
-    //==========
 }
 
 void wid_sys_wipe::get_path_edit(QString path)
@@ -229,6 +197,7 @@ void wid_sys_wipe::wipe_list_file()
         //粉碎文件，粉碎失败加入列表
         bool is_ok = qt_wipe::wipe_path(list_will_wipe[i]);
         if(is_ok == false) list_leave<<list_will_wipe[i];
+        vlog("粉碎成功：%d",is_ok);
     }
 
     //将保留项加入列表

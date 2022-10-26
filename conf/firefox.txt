@@ -1,0 +1,3 @@
+##info:火狐浏览器##
+##history##.mozilla/firefox/762eg4wq.default/places.sqlite##
+##cookies##.mozilla/firefox/762eg4wq.default/cookies.sqlite##

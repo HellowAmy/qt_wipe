@@ -40,6 +40,7 @@ SOURCES += \
     qt_show.cpp \
     qt_wipe.cpp \
     sys_info.cpp \
+    sys_section_file.cpp \
     wid_list_butt.cpp \
     wid_main.cpp \
     wid_sys_browser.cpp \
@@ -79,6 +80,7 @@ HEADERS += \
     qt_show.h \
     qt_wipe.h \
     sys_info.h \
+    sys_section_file.h \
     wid_list_butt.h \
     wid_main.h \
     wid_sys_browser.h \

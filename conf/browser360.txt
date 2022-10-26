@@ -1,0 +1,5 @@
+##info:360浏览器##
+##history##.config/browser360/Default/History##
+##history##.config/browser360/Default/History-journal##
+##cookies##.config/browser360/Default/Cookies##
+##cookies##.config/browser360/Default/Cookies-journal##

@@ -22,6 +22,8 @@
 //#endif
 
 
+#include "sys_section_file.h"
+
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -29,7 +31,9 @@ Widget::Widget(QWidget *parent)
 {
     ui->setupUi(this);
 
-
+    QStringList list = files_info::get_files_path("../qt_wipe/conf");
+    show_arr<QStringList>(list);
+    sys_section_file::get_browser_info("/home/red/open/work/qt_wipe/conf/chrome.txt");
 
 
 

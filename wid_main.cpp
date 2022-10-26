@@ -5,7 +5,7 @@
 wid_main::wid_main(QWidget *parent) : qt_frameless(parent)
 {
     this->set_back(":/pic_title.png");
-////    this->set_frameless(true);
+    this->set_frameless(true);
     this->set_frameless(false);
 
     //系统信息
@@ -46,9 +46,10 @@ wid_main::wid_main(QWidget *parent) : qt_frameless(parent)
     manage_move->set_pos_hide(QPoint(0,this->height()));
     manage_move->add_wid_vec(to_vec<QWidget*>
                              (sys_info,sys_wipe,sys_browser));
-    manage_move->open(1);
+    manage_move->open(2);
 
     vlog("init finish");
+    sys_browser->scan_browser();
 
     connect(list_butt,&wid_list_butt::fa_butt_index,this,[=](int index){
         manage_move->start_move(index);
