@@ -10,6 +10,7 @@
 #include "qt_manage.h"
 #include "sys_info.h"
 #include "qt_wipe.h"
+#include "wid_sys_browser.h"
 
 #include "files_info.h"
 
@@ -31,10 +32,43 @@ Widget::Widget(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QStringList list = files_info::get_files_path("../qt_wipe/conf");
-    show_arr<QStringList>(list);
-    sys_section_file::get_browser_info("/home/red/open/work/qt_wipe/conf/chrome.txt");
+//    QStringList list = files_info::get_files_path("../qt_wipe/conf");
+//    show_arr<QStringList>(list);
+//    sys_section_file::get_browser_info("/home/red/open/work/qt_wipe/conf/chrome.txt");
 
+
+    this->resize(520,280);
+    wid_sys_browser *hu = new wid_sys_browser(this);
+    hu->scan_browser();
+    hu->resize(520,280);
+    hu->show();
+
+//    void System::MoveWindow(void)
+//    {
+//            XEvent event;
+//            memset(&event, 0, sizeof(XEvent));
+//            const auto pos = QCursor::pos();
+
+//            Display *display = QX11Info::display();
+//            event.xclient.type = ClientMessage;
+//            event.xclient.message_type =
+//                XInternAtom(display, "_NET_WM_MOVERESIZE", False);
+//            event.xclient.display = display;
+//            //wid 是当前程序的 window id，可以通过 QWidget->wId()获得，QWidget 必须实例化
+//            event.xclient.window = wid;
+//            event.xclient.format = 32;
+//            event.xclient.data.l[0] = pos.x();
+//            event.xclient.data.l[1] = pos.y();
+//            event.xclient.data.l[2] = 8;
+//            event.xclient.data.l[3] = Button1;
+//            event.xclient.data.l[4] = 1;
+
+//            XUngrabPointer(display, CurrentTime);
+//            XSendEvent(display, QX11Info::appRootWindow(QX11Info::appScreen()),
+//                       False, SubstructureNotifyMask | SubstructureRedirectMask,
+//                       &event);
+//            XFlush(display);
+//    }
 
 
 

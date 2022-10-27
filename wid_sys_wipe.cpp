@@ -15,9 +15,6 @@ void wid_sys_wipe::clear_recover()
     QString path_info =
             files_info::get_host_path() + ".local/share/Trash/info";
 
-    vlog("回收站清空路径1：%s",path_files.toStdString().c_str());
-    vlog("回收站清空路径2：%s",path_info.toStdString().c_str());
-
     int count_ok = 0;
     QDir dir;
 
@@ -40,8 +37,6 @@ void wid_sys_wipe::clear_recover()
 
 void wid_sys_wipe::init()
 {
-    vlog("init wipe");
-
     //全部布局以输入框为基准点
     str_edit_info = "<<将粉碎文件拖入此处>>";
     int space = 5;//控件的间隔
@@ -106,6 +101,8 @@ void wid_sys_wipe::init()
     dialog_recover->set_text("<<即将清空回收站>>");
 
     dialog_failed = new qt_dialog(this);
+
+    vlog("初始化粉碎窗口成功");
 }
 
 void wid_sys_wipe::signal()

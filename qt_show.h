@@ -30,13 +30,12 @@ void show(const T &buf)
 template<class T>
 void show_arr(const T vec,QString flg = "|")
 {
-    out<<"==========";
+    out<<"===== " +flg+ " =====";
     for(int i = 0;i<vec.size();i++)
     {
-        QString str = flg + vec[i];
-        out<<flg<<vec[i];
+        out<<vec[i];
     }
-    out<<"----------";
+    out<<"====================";
 }
 //=====
 

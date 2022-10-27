@@ -118,7 +118,7 @@ public void percent_init(struct percent_s *p, const char *name, const size_t buf
   if (p->display)
     {
       percent_line_clear(p);
-      printf(" \r%s: 0%%", p->name); fflush(stdout); /* display */
+//      printf(" \r%s: 0%%", p->name); fflush(stdout); /* display */
     }
 }
 
@@ -152,7 +152,7 @@ public void percent_update(struct percent_s *p)
 
   percent = (int)(((float) ++p->cur_pass / (float) p->total_passes) * 100);
 
-  printf(" \r%s: %d%%", p->name, percent);
+//  printf(" \r%s: %d%%", p->name, percent);
 
   char tmp[256] = {0};
   sprintf(tmp, "%s: %d%%", p->name, percent);

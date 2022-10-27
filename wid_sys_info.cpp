@@ -4,8 +4,6 @@
 
 wid_sys_info::wid_sys_info(QWidget *parent) : qt_frameless(parent)
 {
-    vlog("init");
-
     sys_info *info = new sys_info_klin(this);//虚函数
     set_info(info);
 }
@@ -14,8 +12,6 @@ void wid_sys_info::set_info(sys_info *info)
 {
     if(info != nullptr)
     {
-        vlog("show_info");
-
         QLabel *lab_version = new QLabel(this);
         QLabel *lab_cpu = new QLabel(this);
         QLabel *lab_men = new QLabel(this);
@@ -77,6 +73,8 @@ void wid_sys_info::set_info(sys_info *info)
         move->add_wid(lab_host);
         move->add_wid(lab_ip);
         move->set_vert(QPoint(20,40));
+
+        vlog("初始化信息窗口成功");
 
 
 //        //===================================
@@ -140,4 +138,5 @@ void wid_sys_info::set_info(sys_info *info)
 //        //===================================
 
     }
+    else vlog("信息窗口指针为空");
 }

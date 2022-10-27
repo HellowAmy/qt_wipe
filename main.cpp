@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 //    Widget w;
 //    w.show();
 
-    vlog("ready in wid_main");
+//    vlog("ready in wid_main");
 
     wid_main k;
     k.show();

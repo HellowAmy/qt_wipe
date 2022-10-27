@@ -5,6 +5,7 @@
 #include <QString>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QLabel>
 
 #include "qt_frameless.h"
 #include "wid_tab_list.h"
@@ -16,6 +17,8 @@
 //! 说明:
 //! 该类用于承载清除上网痕迹的界面
 //! 提供清除按钮
+//! 外部调用scan_browser函数扫描到列表
+//! clear_browser函数清除列表内浏览器文件
 //!
 class wid_sys_browser : public qt_frameless
 {
@@ -29,15 +32,18 @@ signals:
     emit void fa_clear_failed();
 
 protected:
+    bool is_ready = false;
     wid_tab_list *tab_list;
-    qt_dialog *dialog_clear;
-    qt_dialog *dialog_failed;
 
+
+//    qt_dialog *dialog_clear;
+//    qt_dialog *dialog_failed;
+    QLabel *lab_info;
     QPushButton *butt_clear;//清空浏览器痕迹
     QStringList list_conf;//配置文件路径
 
-    bool clear_browser();
-    void add_list_info();
+    bool clear_browser();//扫描浏览器
+    void add_list_info();//清除浏览器文件
 
 };
 

@@ -20,6 +20,7 @@ public:
     explicit wid_main(QWidget *parent = nullptr);
 
 signals:
+    emit void fa_press_right();
 
 protected:
     wid_sys_info *sys_info;
@@ -28,6 +29,9 @@ protected:
 
     wid_list_butt *list_butt;
     qt_manage *manage_move;
+
+    void mousePressEvent(QMouseEvent *event) override;
+
 };
 
 #endif // WID_MAIN_H
