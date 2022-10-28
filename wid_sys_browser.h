@@ -35,9 +35,6 @@ protected:
     bool is_ready = false;
     wid_tab_list *tab_list;
 
-
-//    qt_dialog *dialog_clear;
-//    qt_dialog *dialog_failed;
     QLabel *lab_info;
     QPushButton *butt_clear;//清空浏览器痕迹
     QStringList list_conf;//配置文件路径

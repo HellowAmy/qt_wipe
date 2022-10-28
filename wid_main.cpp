@@ -4,9 +4,13 @@
 
 wid_main::wid_main(QWidget *parent) : qt_frameless(parent)
 {
+    QRect v_rect = QRect (0,0,150,150);//范围移动点击
+
+    //主窗口的设置
     this->set_back(":/pic_title.png");
     this->set_frameless(true);
 //    this->set_frameless(false);
+    this->set_range(v_rect);
     this->resize(670,280+(150/2));
 
     //系统信息
@@ -42,6 +46,22 @@ wid_main::wid_main(QWidget *parent) : qt_frameless(parent)
     manage_move->add_wid_vec
             (to_vec<QWidget*>(sys_info,sys_wipe,sys_browser));
     manage_move->open();
+
+
+
+    //===== 关闭程序 =====
+    //关闭程序按钮
+    qt_butt *butt_close = new qt_butt(this);
+    butt_close->move(0,0);
+//    butt_close-
+    butt_close->set_normal(":/pic_close.png");
+    butt_close->open();
+
+    //关闭程序信号
+    connect(butt_close,&qt_butt::clicked,this,&wid_main::close);
+    //===== 关闭程序 =====
+
+
 
     //点击按钮列表
     connect(list_butt,&wid_list_butt::fa_butt_index,this,[=](int index){
@@ -80,5 +100,9 @@ void wid_main::mousePressEvent(QMouseEvent *event)
 {
     qt_frameless::mousePressEvent(event);
 
-    if(event->button() == Qt::RightButton) emit fa_press_right();
+    if(event->button() == Qt::RightButton)
+    {
+        if(v_rect.contains(event->pos())) emit fa_press_right();
+    }
+
 }

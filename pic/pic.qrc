@@ -3,5 +3,6 @@
         <file>butt_choose_old.png</file>
         <file>pic_info.png</file>
         <file>pic_title.png</file>
+        <file>pic_close.png</file>
     </qresource>
 </RCC>

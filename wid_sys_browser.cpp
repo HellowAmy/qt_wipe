@@ -16,7 +16,6 @@ wid_sys_browser::wid_sys_browser(QWidget *parent) : qt_frameless(parent)
     QColor col(50,50,50,127);
     QPalette palette_butt;
     palette_butt.setColor(QPalette::Button,col);
-
     butt_clear->setFlat(true);
     butt_clear->setAutoFillBackground(true);
     butt_clear->setPalette(palette_butt);
@@ -31,13 +30,8 @@ wid_sys_browser::wid_sys_browser(QWidget *parent) : qt_frameless(parent)
     tab_list->move(butt_clear->pos() +
                    QPoint(0,butt_clear->height() + space));
 
-
-
     //提示框
     lab_info = new QLabel(this);
-
-
-
     lab_info->setFont(QFont("微软雅黑",16));
     lab_info->setAlignment(Qt::AlignCenter);
     lab_info->setFrameShape(QFrame::Box);
@@ -48,17 +42,7 @@ wid_sys_browser::wid_sys_browser(QWidget *parent) : qt_frameless(parent)
                    QPoint(butt_clear->width() + space * space * 2 ,0));
     lab_info->resize(tab_list->width() / 4,tab_list->height() +
                      butt_clear->height() + space);
-
     lab_info->setText("点\n击\n清\n除\n痕\n迹");
-
-
-//    //清除提示
-//    dialog_clear = new qt_dialog(this);
-//    dialog_clear->set_text("<<是否清空上网痕迹>>");
-
-//    //失败提示
-//    dialog_failed = new qt_dialog(this);
-//    dialog_failed->set_text("<<清空痕迹时遇到阻碍>>");
 
     vlog("初始化浏览器清除窗口成功");
 
@@ -98,18 +82,6 @@ wid_sys_browser::wid_sys_browser(QWidget *parent) : qt_frameless(parent)
             }
         }
     });
-
-//    //确认清除
-//    connect(dialog_clear,&qt_dialog::fa_press_ok,this,[=](){
-
-//        if(clear_browser() == false)
-//        {
-//            dialog_failed->show();
-//            vlog("清除失败");
-//        }
-//        else vlog("清除成功");
-//    });
-
 }
 
 void wid_sys_browser::scan_browser()

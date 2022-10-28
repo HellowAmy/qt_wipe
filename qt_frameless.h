@@ -18,6 +18,7 @@ public:
     explicit qt_frameless(QWidget *parent = nullptr);
     void set_back(QString pic);//设置背景图片
     void set_frameless(bool is_lucent = false);//启动无边框，默认不开启透明背景
+    void set_range(QRect rect);
 
 signals:
 
@@ -34,6 +35,10 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
+
+    //开启无边框范围点击
+    bool is_range = false;
+    QRect v_rect;
 
 };
 

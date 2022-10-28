@@ -12,6 +12,7 @@
 #include "wid_sys_wipe.h"
 #include "wid_sys_browser.h"
 #include "qt_manage.h"
+#include "qt_butt.h"
 
 class wid_main : public qt_frameless
 {
@@ -29,6 +30,7 @@ protected:
 
     wid_list_butt *list_butt;
     qt_manage *manage_move;
+
 
     void mousePressEvent(QMouseEvent *event) override;
 

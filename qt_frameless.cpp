@@ -14,8 +14,21 @@ void qt_frameless::set_back(QString pic)
 void qt_frameless::set_frameless(bool is_lucent)
 {
     is_lessframe = true;
-    this->setWindowFlag(Qt::FramelessWindowHint);//无边框
+
+    //Linux下开启无边框窗口会撞墙
+//    this->setWindowFlags(Qt::FramelessWindowHint);//无边框
+
+    //不会撞墙的方法--缺点是无法显示下方状态栏的窗口
+    this->setWindowFlags(Qt::FramelessWindowHint
+                   |Qt::X11BypassWindowManagerHint);
+
     if(is_lucent) this->setAttribute(Qt::WA_TranslucentBackground);//背景透明
+}
+
+void qt_frameless::set_range(QRect rect)
+{
+    is_range = true;
+    v_rect = rect;
 }
 
 void qt_frameless::paintEvent(QPaintEvent *e)
@@ -55,6 +68,12 @@ void qt_frameless::mousePressEvent(QMouseEvent *event)
     //=====开启无边框移动=====
     if(is_lessframe)
     {
+        //开启无边框范围点击
+        if(is_range)
+        {
+            if(v_rect.contains(event->pos()) == false) return;
+        }
+
         is_press = true;//允许移动——防止抖动
         pos_global = event->pos();//记录点击位置
     }

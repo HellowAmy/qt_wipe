@@ -399,7 +399,7 @@ void qt_manage::mode_first_1()
     {
         //新窗口位置
         vec_wid[index]->move(pos_show +
-                 QPoint(0,-(pos_show.y() + vec_wid[index]->height() * 3)));
+                 QPoint(0,-(pos_show.y() + vec_wid[index]->height() * 2)));
 
         vec_wid[index]->show();
         is_first = false;
