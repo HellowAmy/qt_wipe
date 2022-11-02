@@ -2,7 +2,11 @@
 
 qt_dialog::qt_dialog(QWidget *parent) : QDialog(parent)
 {
+    //必须单个使用，多个合并setWindowFlags函数会出现无效bug
     this->setWindowFlag(Qt::FramelessWindowHint);//无边框
+    this->setWindowFlag(Qt::WindowStaysOnTopHint);//窗口置顶
+    this->setWindowFlag(Qt::X11BypassWindowManagerHint);//隐藏弹出窗口
+
     this->setWindowModality(Qt::WindowModal);//模态
     this->hide();
 

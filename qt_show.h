@@ -35,7 +35,7 @@ void show_arr(const T vec,QString flg = "|")
     {
         out<<vec[i];
     }
-    out<<"====================";
+    out<<"--------------------";
 }
 //=====
 

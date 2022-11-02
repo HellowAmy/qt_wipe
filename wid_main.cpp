@@ -53,7 +53,6 @@ wid_main::wid_main(QWidget *parent) : qt_frameless(parent)
     //关闭程序按钮
     qt_butt *butt_close = new qt_butt(this);
     butt_close->move(0,0);
-//    butt_close-
     butt_close->set_normal(":/pic_close.png");
     butt_close->open();
 
@@ -78,14 +77,18 @@ wid_main::wid_main(QWidget *parent) : qt_frameless(parent)
 
     //结束时发送窗口号
     connect(manage_move,&qt_manage::fa_finish_index,[=](int index){
+
         if(index == 2) sys_browser->scan_browser();
     });
 
+    //右键展开按钮列表
     connect(this,&wid_main::fa_press_right,this,[=](){
 
         //按钮列表--展开
         if(list_butt->status_start() == false)
+        {
             list_butt->start_list();
+        }
 
         //按钮列表--关闭
         else if(list_butt->status_start())

@@ -17,6 +17,8 @@
 #include "qt_dialog.h"
 #include "qt_show.h"
 
+#include "rules/wid_rules.h"
+
 //#include <QDebug>
 //#ifndef out
 //#define out qDebug()
@@ -37,11 +39,20 @@ Widget::Widget(QWidget *parent)
 //    sys_section_file::get_browser_info("/home/red/open/work/qt_wipe/conf/chrome.txt");
 
 
-    this->resize(520,280);
-    wid_sys_browser *hu = new wid_sys_browser(this);
-    hu->scan_browser();
-    hu->resize(520,280);
-    hu->show();
+//    this->resize(520,280);
+//    wid_sys_browser *hu = new wid_sys_browser(this);
+//    hu->scan_browser();
+//    hu->resize(520,280);
+//    hu->show();
+
+
+
+
+//    wid_rules *ji = new wid_rules(this);
+//    ji->show();
+
+
+
 
 //    void System::MoveWindow(void)
 //    {

@@ -39,6 +39,8 @@ SOURCES += \
     qt_move_it.cpp \
     qt_show.cpp \
     qt_wipe.cpp \
+    rules/qt_rules.cpp \
+    rules/wid_rules.cpp \
     sys_info.cpp \
     sys_section_file.cpp \
     wid_list_butt.cpp \
@@ -79,6 +81,8 @@ HEADERS += \
     qt_move_it.h \
     qt_show.h \
     qt_wipe.h \
+    rules/qt_rules.h \
+    rules/wid_rules.h \
     sys_info.h \
     sys_section_file.h \
     wid_list_butt.h \

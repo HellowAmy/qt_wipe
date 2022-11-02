@@ -7,6 +7,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 
+#include "rules/wid_rules.h"
 #include "qt_frameless.h"
 #include "wid_tab_list.h"
 #include "files_info.h"
@@ -33,10 +34,12 @@ protected:
     qt_dialog *dialog_wipe;
     qt_dialog *dialog_recover;
     qt_dialog *dialog_failed;
+    wid_rules *v_rules;
 
     QLineEdit *edit_path;//获取粉碎文件路径
     QPushButton *butt_wipe;//粉碎文件
     QPushButton *butt_recover;//清空回收站
+    QPushButton *butt_rules;//规则粉碎
 
     QStringList list_wipe;//粉碎文件路径
     QString str_edit_info;//拖动提示

@@ -37,6 +37,11 @@ void wid_sys_wipe::clear_recover()
 
 void wid_sys_wipe::init()
 {
+    //规则粉碎弹窗
+    v_rules = new wid_rules(this);
+    v_rules->resize(1200,400+30);
+    v_rules->hide();
+
     //全部布局以输入框为基准点
     str_edit_info = "<<将粉碎文件拖入此处>>";
     int space = 5;//控件的间隔
@@ -55,13 +60,22 @@ void wid_sys_wipe::init()
     butt_wipe->setText("文件粉碎");
     butt_wipe->show();
 
+    //规则粉碎
+    butt_rules = new QPushButton(this);
+    butt_rules->resize(100,30);
+    butt_rules->move(butt_wipe->pos() +
+                     QPoint(0, butt_wipe->height() + space));
+    butt_rules->setText("规则粉碎");
+    butt_rules->show();
+
     //清空回收站 (位置在粉碎按钮下方)
     butt_recover = new QPushButton(this);
-    butt_recover->resize(100,200);
-    butt_recover->move(butt_wipe->pos() +
-                       QPoint(0, butt_wipe->height() + space));
+    butt_recover->resize(100,200 - 35);
+    butt_recover->move(butt_rules->pos() +
+                       QPoint(0, butt_rules->height() + space));
     butt_recover->setText("清\n空\n回\n收\n站");
     butt_recover->show();
+
 
     //==半透明==
     //设置输入框的背景透明（需要自定义添加背景）
@@ -82,6 +96,11 @@ void wid_sys_wipe::init()
     butt_recover->setFlat(true);
     butt_recover->setAutoFillBackground(true);
     butt_recover->setPalette(palette_butt);
+
+    butt_rules->setFlat(true);
+    butt_rules->setAutoFillBackground(true);
+    butt_rules->setPalette(palette_butt);
+
     //==半透明==
 
     //显示粉碎路径文件名列表
@@ -132,6 +151,12 @@ void wid_sys_wipe::signal()
             dialog_wipe->show();
             vlog("粉碎按钮--唤起弹窗");
         }
+    });
+
+    //规则粉碎
+    connect(butt_rules,&QPushButton::clicked,this,[=](){
+        v_rules->show();
+        v_rules->search_conf();
     });
 
     //粉碎--ok
