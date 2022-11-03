@@ -39,7 +39,7 @@ void wid_sys_wipe::init()
 {
     //规则粉碎弹窗
     v_rules = new wid_rules(this);
-    v_rules->resize(1200,400+30);
+//    v_rules->resize(1200,400+30);
     v_rules->hide();
 
     //全部布局以输入框为基准点
@@ -156,7 +156,7 @@ void wid_sys_wipe::signal()
     //规则粉碎
     connect(butt_rules,&QPushButton::clicked,this,[=](){
         v_rules->show();
-        v_rules->search_conf();
+        v_rules->search_files();
     });
 
     //粉碎--ok
